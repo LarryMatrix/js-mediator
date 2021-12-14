@@ -4,6 +4,7 @@ const mediatorUtils = require('openhim-mediator-utils');
 const apiConf = require('./config/config');
 const mediatorConfig = require('./config/mediator');
 const axios = require('axios');
+const request = require('request');
 
 const app = express();
 const PORT = 3400;
@@ -78,7 +79,31 @@ app.post('/hrhis-mediator', (req, res) => {
         }
     ];
 
-    res.send(payload);
+    request.post(
+        {
+            headers: {'content-type': 'application/json'},
+            url: 'https://reqbin.com/echo/post/json',
+            json: payload,
+        }, function (error, response, body) {
+            console.log('error', error);
+            console.log('response', response);
+            console.log('body', body);
+            res.send(response);
+        },
+    );
+
+    // axios.post('https://reqbin.com/echo/post/json', payload).then((response)=> {
+    //     let result = {
+    //         payload: payload,
+    //         response: response.data
+    //     }
+    //     res.send(result);
+    // }).catch((error)=> {
+    //     console.log('error', error);
+    // }).then(() => {
+    //     console.log('final');
+    // })
+
 
 });
 
