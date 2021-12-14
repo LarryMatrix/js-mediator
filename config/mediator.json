@@ -1,0 +1,111 @@
+{
+  "urn": "urn:uuid:1d4b7ec1-b623-4506-8bf4-0c52df3b7dd3",
+  "version": "1.0.0",
+  "name": "HFR Mediator Trigger",
+  "description": "This mediator synchronises data between HFR and other systems",
+  "defaultClientConfig": [
+    {
+      "clientID": "HFR",
+      "name": "HFR",
+      "organization": "MOH",
+      "softwareName": "HFR",
+      "passwordAlgorithm": "sha512",
+      "passwordSalt": "16400d41d2372ceaguoq8743vbfuWH$T%24g5a0933b436ffbluw.i3487",
+      "passwordHash": "11fe16c4c77c23175a6028514a40ccd3abc05eef55c91f106d50e6ad7cf07791e97a1c5d7c29fdad3fc8c1776a162b0355621e2607838da64c6313ee85488706",
+      "roles": [
+        "hfr"
+      ]
+    }
+  ],
+  "defaultChannelConfig": [
+    {
+      "name": "HFR Admin Hierarchy",
+      "urlPattern": "^/hfr-admin$",
+      "type": "http",
+      "description": "This is HFR Admin Hierarchy Meditor",
+      "allow": [
+        "mrc"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "routes": [
+        {
+          "name": "HFR Admin Hierarchy",
+          "host": "hfrs.moh.go.tz",
+          "port": "80",
+          "path": "/web/index.php",
+          "type": "http",
+          "primary": "true",
+          "password": "",
+          "secured": false,
+          "forwardAuthHeader": false,
+          "username": "",
+          "status": "enabled"
+        }
+      ],
+      "requestBody": true,
+      "responseBody": true,
+      "maxBodyAgeDays": 90,
+      "matchContentRegex": null,
+      "matchContentXpath": null,
+      "matchContentValue": null,
+      "matchContentJson": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null,
+      "autoRetryPeriodMinutes": 60,
+      "autoRetryEnabled": false,
+      "rewriteUrlsConfig": [],
+      "addAutoRewriteRules": true,
+      "rewriteUrls": false,
+      "status": "enabled",
+      "alerts": [],
+      "txRerunAcl": [],
+      "txViewFullAcl": [],
+      "txViewAcl": [],
+      "properties": [],
+      "matchContentTypes": [],
+      "authType": "public",
+      "whitelist": []
+    }
+  ],
+  "endpoints": [
+    {
+      "name": "HFR Mediator Route",
+      "host": "localhost",
+      "port": "34500",
+      "path": "/mediator",
+      "type": "http",
+      "primary": true
+    }
+  ],
+  "configDefs": [
+    {
+      "param": "hfr",
+      "displayName": "HFR Credentials",
+      "description": "The Open Authentication that generates access token to access TImR server",
+      "type": "struct",
+      "template": [
+        {
+          "param": "url",
+          "displayName": "HFR Host Name",
+          "description": "The base URL (e.g. http://hfr.moh.go.tz/auth/oauth2_token)",
+          "type": "string"
+        },
+        {
+          "param": "hfr_facilities",
+          "displayName": "HIM Host Name",
+          "description": "The base URL (e.g. http://him.moh.go.tz/)",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "config": {
+    "hfr": {
+      "url": "http://hfrs.moh.go.tz/web/index.php",
+      "hfr_facilities": "https://him.moh.go.tz:5000/get-health-facilities-from-hfr"
+    }
+  }
+}
