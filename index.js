@@ -13,6 +13,7 @@ const app = express();
 const PORT = 3400;
 let URL = mediatorConfig.config.hfr.url;
 let FACILITIES_URL = mediatorConfig.config.hfr.hfr_facilities;
+let GEPG_URL = mediatorConfig.config.hfr.gepg;
 
 app.use(parser.json());
 
@@ -149,8 +150,8 @@ app.post('/gepg', (req, res) => {
     } else {
         request.post(
             {
-                headers: {'content-type': 'application/json'},
-                url: 'http://173.255.211.86:5001/sample-gpg-destination',
+                headers: {'content-type': 'application/xml'},
+                url: GEPG_URL,
                 xml: req.body,
             }, function (error, response, body) {
                 let results = {};

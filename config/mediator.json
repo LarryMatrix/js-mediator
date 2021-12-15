@@ -83,9 +83,9 @@
       "routes": [
         {
           "name": "HIM GEPG",
-          "host":"173.255.211.86",
-          "port": "5001",
-          "path": "/sample-gpg-destination",
+          "host":"localhost",
+          "port": "3400",
+          "path": "/gepg",
           "type": "http",
           "primary": "false",
           "password": "",
@@ -157,6 +157,12 @@
           "displayName": "HIM Host Name",
           "description": "The base URL (e.g. http://him.moh.go.tz/)",
           "type": "string"
+        },
+        {
+          "param": "gepg",
+          "displayName": "HIM Host Name",
+          "description": "The base URL (e.g. http://him.moh.go.tz/)",
+          "type": "string"
         }
       ]
     }
@@ -164,7 +170,8 @@
   "config": {
     "hfr": {
       "url": "http://hfrs.moh.go.tz/web/index.php",
-      "hfr_facilities": "https://him.moh.go.tz:5000/get-health-facilities-from-hfr"
+      "hfr_facilities": "https://him.moh.go.tz:5000/get-health-facilities-from-hfr",
+      "gepg": "http://173.255.211.86:5001/sample-gpg-destination"
     }
   }
 }
