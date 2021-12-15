@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "jest",
-    "coverage": "jest --coverage"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,10 +17,7 @@
     "openhim-mediator-utils": "^0.2.3",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "winston": "^3.3.3"
-  },
-  "devDependencies": {
-    "jest": "^27.4.5",
-    "supertest": "^6.1.6"
+    "winston": "^3.3.3",
+    "xml2js": "^0.4.23"
   }
 }

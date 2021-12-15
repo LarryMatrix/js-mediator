@@ -6,6 +6,8 @@ const mediatorConfig = require('./config/mediator');
 const axios = require('axios');
 const request = require('request');
 require('body-parser-xml')(parser);
+const xml2js = require('xml2js');
+const xmlParser = new xml2js.Parser({attrkey: 'ATTR'});
 
 const app = express();
 const PORT = 3400;
@@ -26,9 +28,9 @@ app.use(parser.xml({
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
-app.get('/', (req, res)=> {
-    res.send('welcome to the JS Mediator')
-})
+app.get('/', (req, res) => {
+    res.send('welcome to the JS Mediator');
+});
 
 app.get('/mediator', (req, res) => {
     const PARAMS = req.query;
@@ -145,17 +147,49 @@ app.post('/gepg', (req, res) => {
     if (req.headers['content-type'] !== 'application/xml') {
         res.status(400).send({'error': 'parsed xml data'});
     } else {
-        let result = '<Gepg>\n' +
-            '<gepgBillSubRespAck>\n' +
-            '<TrxStsCode>7101</TrxStsCode>\n' +
-            '</gepgBillSubRespAck>\n' +
-            '<gepgSignature> WZkiskyoKm/KJTjzCDmUjWLc3Lv2wJzFM68atqVQrGCecZPVWp6Ztk0aYFJpdZnnVQTuQ==</gepgSignature>\n' +
-            '</Gepg>';
-        if (req.body.gepg.gepgbillsubresp.trxstscode === 7101) {
-            res.status(200).send(result);
-        } else {
-            res.status(400).send(result);
-        }
+        request.post(
+            {
+                headers: {'content-type': 'application/json'},
+                url: 'http://173.255.211.86:5001/sample-gpg-destination',
+                xml: req.body,
+            }, function (error, response, body) {
+                let results = {};
+                let orchestrations = [];
+                let timeStamp = new Date();
+
+                results =
+                    {
+                        'x-mediator-urn': apiConf.api.urn,
+                        status: result.Gepg.gepgBillSubRespAck[0].TrxStsCode[0] === '7101' ? 'successful' : 'completed',
+                        request: {
+                            method: req.method,
+                            headers: req.headers,
+                            timestamp: req.timestamp,
+                            path: req.path
+                        },
+                        response: {
+                            status: 200,
+                            body: JSON.stringify(response.body),
+                            timeStamp: timeStamp
+                        },
+                        orchestrations: orchestrations
+                    };
+
+                xmlParser.parseString(response.body, function (error, result) {
+                    if (error === null) {
+                        if (result.Gepg.gepgBillSubRespAck[0].TrxStsCode[0] === '7101') {
+                            res.status(200).send(results);
+                        } else {
+                            res.status(400).send(results);
+                        }
+                    } else {
+                        console.log('error', error);
+                        res.status(302).send({'error': 'theres an error'});
+                    }
+                });
+
+            },
+        );
 
     }
 

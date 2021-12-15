@@ -68,57 +68,6 @@
       "matchContentTypes": [],
       "authType": "public",
       "whitelist": []
-    },
-    {
-      "name": "HFR Facilities Hierarchy",
-      "urlPattern": "^/health-facilities$",
-      "type": "http",
-      "description": "This is HFR Facilities Mediator",
-      "allow": [
-        "mrc"
-      ],
-      "methods": [
-        "GET"
-      ],
-      "routes": [
-        {
-          "name": "HFR Admin Hierarchy",
-          "host": "him.moh.go.tz",
-          "port": "5000",
-          "path": "/get-health-facilities-from-hfr",
-          "type": "https",
-          "primary": "true",
-          "password": "",
-          "secured": false,
-          "forwardAuthHeader": false,
-          "username": "",
-          "status": "enabled"
-        }
-      ],
-      "requestBody": true,
-      "responseBody": true,
-      "maxBodyAgeDays": 90,
-      "matchContentRegex": null,
-      "matchContentXpath": null,
-      "matchContentValue": null,
-      "matchContentJson": null,
-      "pollingSchedule": null,
-      "tcpHost": null,
-      "tcpPort": null,
-      "autoRetryPeriodMinutes": 60,
-      "autoRetryEnabled": false,
-      "rewriteUrlsConfig": [],
-      "addAutoRewriteRules": true,
-      "rewriteUrls": false,
-      "status": "enabled",
-      "alerts": [],
-      "txRerunAcl": [],
-      "txViewFullAcl": [],
-      "txViewAcl": [],
-      "properties": [],
-      "matchContentTypes": [],
-      "authType": "public",
-      "whitelist": []
     }
   ],
   "endpoints": [
@@ -127,14 +76,6 @@
       "host": "23.92.27.50",
       "port": "3400",
       "path": "/mediator",
-      "type": "http",
-      "primary": true
-    },
-    {
-      "name": "HFR Facilities Route",
-      "host": "23.92.27.50",
-      "port": "3400",
-      "path": "/health-facilities",
       "type": "http",
       "primary": true
     }
