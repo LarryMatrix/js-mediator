@@ -5,6 +5,7 @@ const apiConf = require('./config/config');
 const mediatorConfig = require('./config/mediator');
 const axios = require('axios');
 const request = require('request');
+require('body-parser-xml')(parser);
 
 const app = express();
 const PORT = 3400;
@@ -12,6 +13,15 @@ let URL = mediatorConfig.config.hfr.url;
 let FACILITIES_URL = mediatorConfig.config.hfr.hfr_facilities;
 
 app.use(parser.json());
+
+app.use(parser.xml({
+    limit: '1MB', // Reject payload bigger than 1 MB
+    xmlParseOptions: {
+        normalize: true, // Trim whitespace inside text nodes
+        normalizeTags: true, // Transform tags to lowercase
+        explicitArray: false, // Only put nodes in array if >1
+    },
+}));
 
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
@@ -85,10 +95,29 @@ app.post('/hrhis-mediator', (req, res) => {
             url: 'https://reqbin.com/echo/post/json',
             json: payload,
         }, function (error, response, body) {
-            console.log('error', error);
-            console.log('response', response);
-            console.log('body', body);
-            res.send(response);
+            let result = {};
+            let orchestrations = [];
+            let timeStamp = new Date();
+
+            result = JSON.stringify(
+                {
+                    'x-mediator-urn': apiConf.api.urn,
+                    status: 'completed',
+                    request: {
+                        method: req.method,
+                        headers: req.headers,
+                        timestamp: req.timestamp,
+                        path: req.path
+                    },
+                    response: {
+                        status: 200,
+                        body: response.body,
+                        timeStamp: timeStamp
+                    },
+                    orchestrations: orchestrations
+                }
+            );
+            res.status(200).send(result);
         },
     );
 
@@ -107,6 +136,27 @@ app.post('/hrhis-mediator', (req, res) => {
 
 });
 
+app.post('/gepg', (req, res) => {
+
+    if (req.headers['content-type'] !== 'application/xml') {
+        res.status(400).send({'error': 'parsed xml data'});
+    } else {
+        let result = '<Gepg>\n' +
+            '<gepgBillSubRespAck>\n' +
+            '<TrxStsCode>7101</TrxStsCode>\n' +
+            '</gepgBillSubRespAck>\n' +
+            '<gepgSignature> WZkiskyoKm/KJTjzCDmUjWLc3Lv2wJzFM68atqVQrGCecZPVWp6Ztk0aYFJpdZnnVQTuQ==</gepgSignature>\n' +
+            '</Gepg>';
+        if (req.body.gepg.gepgbillsubresp.trxstscode === 7101) {
+            res.status(200).send(result);
+        } else {
+            res.status(400).send(result);
+        }
+
+    }
+
+
+});
 
 mediatorUtils.registerMediator(apiConf.api, mediatorConfig, (error) => {
     apiConf.api.urn = mediatorConfig.urn;
