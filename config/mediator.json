@@ -78,6 +78,14 @@
       "path": "/mediator",
       "type": "http",
       "primary": true
+    },
+    {
+      "name": "HFR Mediator Route",
+      "host": "23.92.27.50",
+      "port": "3400",
+      "path": "/gepg",
+      "type": "http",
+      "primary": true
     }
   ],
   "configDefs": [
