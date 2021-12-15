@@ -26,6 +26,10 @@ app.use(parser.xml({
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
+app.get('/', (req, res)=> {
+    res.send('welcome to the JS Mediator')
+})
+
 app.get('/mediator', (req, res) => {
     const PARAMS = req.query;
 
