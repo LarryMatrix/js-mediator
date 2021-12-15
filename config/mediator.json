@@ -78,7 +78,7 @@
         "mrc"
       ],
       "methods": [
-        "GET"
+        "POST"
       ],
       "routes": [
         {
