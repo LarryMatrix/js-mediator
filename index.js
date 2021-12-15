@@ -156,6 +156,8 @@ app.post('/gepg', (req, res) => {
                 let results = {};
                 let orchestrations = [];
                 let timeStamp = new Date();
+                console.log('response: ', response);
+
 
                 xmlParser.parseString(response.body, function (error, result) {
                     console.log('statusCode: ', result.Gepg.gepgBillSubRespAck[0].TrxStsCode[0]);
