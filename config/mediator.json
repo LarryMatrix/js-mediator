@@ -70,7 +70,7 @@
       "whitelist": []
     },
     {
-      "name": "HFR Admin Hierarchy",
+      "name": "HFR Facilities Hierarchy",
       "urlPattern": "^/health-facilities$",
       "type": "http",
       "description": "This is HFR Facilities Mediator",
@@ -85,7 +85,7 @@
           "name": "HFR Admin Hierarchy",
           "host": "him.moh.go.tz",
           "port": "5000",
-          "path",:, "/get-health-facilities-from-hfr",
+          "path": "/get-health-facilities-from-hfr",
           "type": "https",
           "primary": "true",
           "password": "",
