@@ -157,25 +157,24 @@ app.post('/gepg', (req, res) => {
                 let orchestrations = [];
                 let timeStamp = new Date();
 
-                results =
-                    {
-                        'x-mediator-urn': apiConf.api.urn,
-                        status: result.Gepg.gepgBillSubRespAck[0].TrxStsCode[0] === '7101' ? 'successful' : 'completed',
-                        request: {
-                            method: req.method,
-                            headers: req.headers,
-                            timestamp: req.timestamp,
-                            path: req.path
-                        },
-                        response: {
-                            status: 200,
-                            body: JSON.stringify(response.body),
-                            timeStamp: timeStamp
-                        },
-                        orchestrations: orchestrations
-                    };
-
                 xmlParser.parseString(response.body, function (error, result) {
+                    results =
+                        {
+                            'x-mediator-urn': apiConf.api.urn,
+                            status: result.Gepg.gepgBillSubRespAck[0].TrxStsCode[0] === '7101' ? 'successful' : 'completed',
+                            request: {
+                                method: req.method,
+                                headers: req.headers,
+                                timestamp: req.timestamp,
+                                path: req.path
+                            },
+                            response: {
+                                status: 200,
+                                body: JSON.stringify(response.body),
+                                timeStamp: timeStamp
+                            },
+                            orchestrations: orchestrations
+                        };
                     if (error === null) {
                         if (result.Gepg.gepgBillSubRespAck[0].TrxStsCode[0] === '7101') {
                             res.status(200).send(results);
