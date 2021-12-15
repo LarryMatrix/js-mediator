@@ -22,7 +22,7 @@
       "name": "HFR Admin Hierarchy",
       "urlPattern": "^/hfr-admin$",
       "type": "http",
-      "description": "This is HFR Admin Hierarchy Meditor",
+      "description": "This is HFR Admin Hierarchy Mediator",
       "allow": [
         "mrc"
       ],
@@ -36,6 +36,57 @@
           "port": "80",
           "path": "/web/index.php",
           "type": "http",
+          "primary": "true",
+          "password": "",
+          "secured": false,
+          "forwardAuthHeader": false,
+          "username": "",
+          "status": "enabled"
+        }
+      ],
+      "requestBody": true,
+      "responseBody": true,
+      "maxBodyAgeDays": 90,
+      "matchContentRegex": null,
+      "matchContentXpath": null,
+      "matchContentValue": null,
+      "matchContentJson": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null,
+      "autoRetryPeriodMinutes": 60,
+      "autoRetryEnabled": false,
+      "rewriteUrlsConfig": [],
+      "addAutoRewriteRules": true,
+      "rewriteUrls": false,
+      "status": "enabled",
+      "alerts": [],
+      "txRerunAcl": [],
+      "txViewFullAcl": [],
+      "txViewAcl": [],
+      "properties": [],
+      "matchContentTypes": [],
+      "authType": "public",
+      "whitelist": []
+    },
+    {
+      "name": "HFR Admin Hierarchy",
+      "urlPattern": "^/health-facilities",
+      "type": "http",
+      "description": "This is HFR Facilities Mediator",
+      "allow": [
+        "mrc"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "routes": [
+        {
+          "name": "HFR Admin Hierarchy",
+          "host": "him.moh.go.tz",
+          "port": "5000",
+          "path",:, "/get-health-facilities-from-hfr",
+          "type": "https",
           "primary": "true",
           "password": "",
           "secured": false,
