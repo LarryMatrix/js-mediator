@@ -68,6 +68,57 @@
       "matchContentTypes": [],
       "authType": "public",
       "whitelist": []
+    },
+    {
+      "name": "HIM GEPG",
+      "urlPattern": "^/gepg$",
+      "type": "http",
+      "description": "This is GEPG Mediator Mediator",
+      "allow": [
+        "mrc"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "routes": [
+        {
+          "name": "HIM GEPG",
+          "host":"173.255.211.86",
+          "port": "5001",
+          "path": "/sample-gpg-destination",
+          "type": "http",
+          "primary": "false",
+          "password": "",
+          "secured": false,
+          "forwardAuthHeader": false,
+          "username": "",
+          "status": "enabled"
+        }
+      ],
+      "requestBody": true,
+      "responseBody": true,
+      "maxBodyAgeDays": 90,
+      "matchContentRegex": null,
+      "matchContentXpath": null,
+      "matchContentValue": null,
+      "matchContentJson": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null,
+      "autoRetryPeriodMinutes": 60,
+      "autoRetryEnabled": false,
+      "rewriteUrlsConfig": [],
+      "addAutoRewriteRules": true,
+      "rewriteUrls": false,
+      "status": "enabled",
+      "alerts": [],
+      "txRerunAcl": [],
+      "txViewFullAcl": [],
+      "txViewAcl": [],
+      "properties": [],
+      "matchContentTypes": [],
+      "authType": "public",
+      "whitelist": []
     }
   ],
   "endpoints": [
@@ -80,7 +131,7 @@
       "primary": true
     },
     {
-      "name": "HFR Mediator Route",
+      "name": "HFR GEPG Route",
       "host": "23.92.27.50",
       "port": "3400",
       "path": "/gepg",
