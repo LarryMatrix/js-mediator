@@ -71,7 +71,7 @@
     },
     {
       "name": "HFR Admin Hierarchy",
-      "urlPattern": "^/health-facilities",
+      "urlPattern": "^/health-facilities$",
       "type": "http",
       "description": "This is HFR Facilities Mediator",
       "allow": [
@@ -124,9 +124,17 @@
   "endpoints": [
     {
       "name": "HFR Mediator Route",
-      "host": "localhost",
-      "port": "34500",
+      "host": "23.92.27.50",
+      "port": "3400",
       "path": "/mediator",
+      "type": "http",
+      "primary": true
+    },
+    {
+      "name": "HFR Facilities Route",
+      "host": "23.92.27.50",
+      "port": "3400",
+      "path": "/health-facilities",
       "type": "http",
       "primary": true
     }
