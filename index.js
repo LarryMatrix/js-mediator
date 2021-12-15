@@ -158,6 +158,7 @@ app.post('/gepg', (req, res) => {
                 let timeStamp = new Date();
 
                 xmlParser.parseString(response.body, function (error, result) {
+                    console.log('statusCode: ', result.Gepg.gepgBillSubRespAck[0].TrxStsCode[0]);
                     results =
                         {
                             'x-mediator-urn': apiConf.api.urn,
